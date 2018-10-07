@@ -1,0 +1,21 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>12345</title>
+</head>
+<body>
+<h1><span th:text="'Вы вошли как '+${player.name} +' Hp:'+${player.health}+' Rating:'+${player.rating}+' damage:'+${player.damage}"></span></h1>
+
+<div class="container">
+    <form th:action="@{/exit}" th:object="${player}" method="POST" name="ver">
+        <label><b>Выход</b></label>
+        <button type="submit">Exit</button>
+    </form>
+    <form th:action="@{/duel}" th:object="${player}" method="POST" name="ver">
+        <label><b>Duel</b></label>
+        <button type="submit">Duel</button>
+    </form>
+</div>
+</body>
+</html>

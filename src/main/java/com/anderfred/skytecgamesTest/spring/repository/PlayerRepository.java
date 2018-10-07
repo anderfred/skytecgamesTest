@@ -1,6 +1,6 @@
-package com.anderfred.skytecgamesTest.repository;
+package com.anderfred.skytecgamesTest.spring.repository;
 
-import com.anderfred.skytecgamesTest.entity.Player;
+import com.anderfred.skytecgamesTest.spring.entity.Player;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

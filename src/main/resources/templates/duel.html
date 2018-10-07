@@ -1,0 +1,18 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>duel</title>
+</head>
+<body>
+<h1><span th:text="${player.name}"></span></h1>
+<form th:action="@{/duelWait}" th:object="${player}" method="POST" name="ver">
+    <p><span th:text="'Name ' +${player.name}"></span></p>
+    <p><span th:text="'Rating ' +${player.rating}"></span></p>
+    <p><span th:text="'Damage ' +${player.damage}"></span></p>
+    <p><span th:text="'HP ' +${player.health}"></span></p>
+    <label><b>Ready</b></label>
+    <button type="submit">Ready </button>
+</form>
+</body>
+</html>

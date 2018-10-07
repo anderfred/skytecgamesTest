@@ -1,0 +1,25 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>fight</title>
+</head>
+<body>
+<h1><span th:text="${hero.name}"></span></h1>
+<p><span th:text="'Damage: '+${hero.damage}"></span></p>
+<p><span th:text="'Hp: '+${hero.health}"></span></p>
+<p><span th:text="'Rating: '+${hero.rating}"></span></p>
+<br><br>
+<form th:action="@{/hit}" method="POST">
+    <label><b>hit</b></label>
+    <button type="submit">hit</button>
+</form>
+
+<h2><span th:text="${enemy.name}"></span></h2>
+<p><span th:text="'Damage: '+${enemy.damage}"></span></p>
+<p><span th:text="'Hp: '+${enemy.health}"></span></p>
+<p><span th:text="'Rating: '+${enemy.rating}"></span></p>
+
+
+</body>
+</html>
