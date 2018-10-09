@@ -7,5 +7,6 @@
 <body>
 <h1><span th:text="${player.name} + ${player.id}"></span>
 </h1>
+<h2><span th:text="${#dates.createNow().getTime()} - ${time}"></span></h2>
 </body>
 </html>

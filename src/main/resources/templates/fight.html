@@ -19,7 +19,14 @@
 <p><span th:text="'Damage: '+${enemy.damage}"></span></p>
 <p><span th:text="'Hp: '+${enemy.health}"></span></p>
 <p><span th:text="'Rating: '+${enemy.rating}"></span></p>
-
-
+<table>
+    <tr>
+        <th>NAME</th>
+    </tr>
+    <tr th:each="hit : ${hits}">
+        <td th:text="${hit}"></td>
+    </tr>
+</table>
+<h2><span th:text="${#dates.createNow().getTime()} - ${time}"></span></h2>
 </body>
 </html>

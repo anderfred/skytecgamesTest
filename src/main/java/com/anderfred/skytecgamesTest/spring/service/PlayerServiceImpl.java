@@ -5,6 +5,8 @@ import com.anderfred.skytecgamesTest.spring.repository.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class PlayerServiceImpl implements PlayerService {
     @Autowired
@@ -39,10 +41,9 @@ public class PlayerServiceImpl implements PlayerService {
         save(player);
     }
 
+
     @Override
-    public void ready(Player player, boolean ready) {
-        player = getPlayerByName(player.getName());
-        player.setReady(ready);
-        save(player);
+    public Optional<Player> findById(Integer integer) {
+        return playerRepository.findById(integer);
     }
 }

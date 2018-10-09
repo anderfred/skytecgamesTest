@@ -14,5 +14,6 @@
     <label><b>Ready</b></label>
     <button type="submit">Ready </button>
 </form>
+<h2><span th:text="${#dates.createNow().getTime()} - ${time}"></span></h2>
 </body>
 </html>

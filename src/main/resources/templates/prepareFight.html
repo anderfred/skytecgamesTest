@@ -25,5 +25,6 @@
 <p><span th:text="'Damage: '+${enemy.damage}"></span></p>
 <p><span th:text="'Hp: '+${enemy.health}"></span></p>
 <p><span th:text="'Rating: '+${enemy.rating}"></span></p>
+<h2><span th:text="${#dates.createNow().getTime()} - ${time}"></span></h2>
 </body>
 </html>
