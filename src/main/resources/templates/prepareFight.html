@@ -3,28 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="css/style.css">
-    <meta http-equiv="refresh" content="10;url=fight">
+    <meta http-equiv="refresh" content="30;url=fight">
     <title>Fight</title>
 </head>
 <body>
-<p>Fight in 30 sec!</p>
-<div id="countdown">
-    <div id="countdown-number"></div>
-    <svg>
-        <circle r="18" cx="20" cy="20"></circle>
-    </svg>
+
+<div class="page-wrapper">
+    <div class="header"><h1>Duel Test</h1>
+        <br><br></div>
+    <br><br>
+    <h1>Битва начнется через 30 секунд!</h1>
+    <div id="countdown">
+        <div id="countdown-number"></div>
+        <svg>
+            <circle r="18" cx="20" cy="20"></circle>
+        </svg>
+    </div>
+    <div class="flex-container">
+        <div class="box">
+            <p class="hero">Герой</p>
+            <p><span th:text="${hero.name}"></span></p>
+            <p><span th:text="'Урон: '+${hero.damage}"></span></p>
+            <p><span th:text="'Здоровье: '+${hero.health}"></span></p>
+            <p><span th:text="'Рейтинг: '+${hero.rating}"></span></p>
+        </div>
+
+        <div class="box">
+            <p class="enemy">Противник</p>
+            <p><span th:text="${enemy.name}"></span></p>
+            <p><span th:text="'Урон: '+${enemy.damage}"></span></p>
+            <p><span th:text="'Здоровье: '+${enemy.health}"></span></p>
+            <p><span th:text="'Рейтинг: '+${enemy.rating}"></span></p>
+        </div>
+    </div>
 </div>
-
-<h1><span th:text="${hero.name}"></span></h1>
-<p><span th:text="'Damage: '+${hero.damage}"></span></p>
-<p><span th:text="'Hp: '+${hero.health}"></span></p>
-<p><span th:text="'Rating: '+${hero.rating}"></span></p>
-<br><br>
-
-<h2><span th:text="${enemy.name}"></span></h2>
-<p><span th:text="'Damage: '+${enemy.damage}"></span></p>
-<p><span th:text="'Hp: '+${enemy.health}"></span></p>
-<p><span th:text="'Rating: '+${enemy.rating}"></span></p>
-<h2><span th:text="${#dates.createNow().getTime()} - ${time}"></span></h2>
 </body>
 </html>

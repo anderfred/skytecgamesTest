@@ -2,21 +2,31 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>12345</title>
+    <link rel="stylesheet" href="css/style.css">
+    <title>Welcome</title>
 </head>
 <body>
-<h1><span th:text="'Вы вошли как '+${player.name} +' Hp:'+${player.health}+' Rating:'+${player.rating}+' damage:'+${player.damage}"></span></h1>
+<div class="page-wrapper">
+    <div class="header">
+        <h1>Duel Test</h1>
+        <br><br><br>
+    </div>
+    <br><br>
+    <h2><span
+            th:text="'Вы вошли как '+${player.name} +' Hp:'+${player.health}+' Rating:'+${player.rating}+' damage:'+${player.damage}"></span>
+    </h2>
 
-<div class="container">
-    <form th:action="@{/exit}" th:object="${player}" method="POST" name="ver">
-        <label><b>Выход</b></label>
-        <button type="submit">Exit</button>
-    </form>
-    <form th:action="@{/duel}" th:object="${player}" method="POST" name="ver">
-        <label><b>Duel</b></label>
-        <button type="submit">Duel</button>
-    </form>
+    <div>
+        <br><br>
+        <div>
+            <form th:action="@{/exit}" th:object="${player}" method="POST" name="ver">
+                <button class="buttonRed" type="submit">Выйти</button>
+            </form>
+            <form th:action="@{/duel}" th:object="${player}" method="POST" name="ver">
+                <button class="buttonBlue" type="submit">Дуэль</button>
+            </form>
+        </div>
+    </div>
 </div>
-<h2><span th:text="${#dates.createNow().getTime()} - ${time}"></span></h2>
 </body>
 </html>

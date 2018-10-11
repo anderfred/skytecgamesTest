@@ -2,31 +2,39 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/style.css">
     <title>fight</title>
 </head>
 <body>
-<h1><span th:text="${hero.name}"></span></h1>
-<p><span th:text="'Damage: '+${hero.damage}"></span></p>
-<p><span th:text="'Hp: '+${hero.health}"></span></p>
-<p><span th:text="'Rating: '+${hero.rating}"></span></p>
-<br><br>
-<form th:action="@{/hit}" method="POST">
-    <label><b>hit</b></label>
-    <button type="submit">hit</button>
-</form>
+<div class="page-wrapper">
+    <div class="header">
+        <h1>Duel Test</h1>
+        <br><br>
+    </div>
 
-<h2><span th:text="${enemy.name}"></span></h2>
-<p><span th:text="'Damage: '+${enemy.damage}"></span></p>
-<p><span th:text="'Hp: '+${enemy.health}"></span></p>
-<p><span th:text="'Rating: '+${enemy.rating}"></span></p>
-<table>
-    <tr>
-        <th>NAME</th>
-    </tr>
-    <tr th:each="hit : ${hits}">
-        <td th:text="${hit}"></td>
-    </tr>
-</table>
-<h2><span th:text="${#dates.createNow().getTime()} - ${time}"></span></h2>
+    <p class="hero"><span th:text="${hero.name}"></span></p>
+    <p><span th:text="'Damage: '+${hero.damage}"></span></p>
+    <p><span th:text="'Hp: '+${hero.health}"></span></p>
+    <p><span th:text="'Rating: '+${hero.rating}"></span></p>
+    <br><br>
+    <form th:action="@{/hit}" method="POST">
+        <button class="buttonRed" type="submit">Ударить!</button>
+    </form>
+    <br><br>
+    <p class="enemy"><span th:text="${enemy.name}"></span></p>
+    <p><span th:text="'Damage: '+${enemy.damage}"></span></p>
+    <p><span th:text="'Hp: '+${enemy.health}"></span></p>
+    <p><span th:text="'Rating: '+${enemy.rating}"></span></p>
+    <table>
+        <tr>
+            <th></th>
+        </tr>
+        <tr th:each="hit : ${hits}">
+            <td th:text="${hit}"></td>
+        </tr>
+    </table>
+    <h2>Время загрузки страницы:<span th:text="${#dates.createNow().getTime()} - ${time}"></span>ms</h2>
+</div>
+
 </body>
 </html>

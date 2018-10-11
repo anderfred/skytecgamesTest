@@ -3,17 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>duel</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<h1><span th:text="${player.name}"></span></h1>
-<form th:action="@{/duelWait}" th:object="${player}" method="POST" name="ver">
-    <p><span th:text="'Name ' +${player.name}"></span></p>
-    <p><span th:text="'Rating ' +${player.rating}"></span></p>
-    <p><span th:text="'Damage ' +${player.damage}"></span></p>
-    <p><span th:text="'HP ' +${player.health}"></span></p>
-    <label><b>Ready</b></label>
-    <button type="submit">Ready </button>
-</form>
-<h2><span th:text="${#dates.createNow().getTime()} - ${time}"></span></h2>
+<div class="page-wrapper">
+    <div class="header"><h1>Duel Test</h1>
+        <br><br></div>
+    <br><br>
+    <form th:action="@{/duelWait}" th:object="${player}" method="POST" name="ver">
+        <p><span th:text="'Имя: ' +${player.name}"></span></p>
+        <p><span th:text="'Рейтинг: ' +${player.rating}"></span></p>
+        <p><span th:text="'Урон: ' +${player.damage}"></span></p>
+        <p><span th:text="'Здоровье: ' +${player.health}"></span></p>
+        <button class="buttonBlue" type="submit">Готовность</button>
+    </form>
+</div>
 </body>
 </html>

@@ -6,8 +6,7 @@ body {
 
 #countdown {
     position: relative;
-    margin: auto;
-    margin-top: 100px;
+    margin: 30px auto 70px;
     height: 40px;
     width: 40px;
     text-align: center;
@@ -35,7 +34,7 @@ svg circle {
     stroke-width: 2px;
     stroke: #000b2c;
     fill: none;
-    animation: countdown 10s linear infinite forwards;
+    animation: countdown 32s linear infinite forwards;
 }
 
 @keyframes countdown {
@@ -45,4 +44,195 @@ svg circle {
     to {
         stroke-dashoffset: 113px;
     }
+}
+
+html {
+    margin: 15px;
+    padding: 15px;
+}
+
+.page-wrapper {
+    padding: 0 175px 0 110px;
+    margin: 0;
+    position: relative;
+}
+
+body {
+    font: 75% sans-serif;
+    line-height: 1.88889;
+    color: #555753;
+    background: #dedede;
+    margin: 0;
+    padding: 0;
+}
+
+p {
+    font: 1.2em sans-serif;
+    margin-top: 0;
+    text-align: justify;
+}
+
+h3 {
+    font: 1.4em sans-serif;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    color: #7D775C;
+}
+
+h2 {
+    font: 1.6em sans-serif;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    color: #9a9597;
+}
+
+h1 {
+    text-align: center;
+    font: 1.8em sans-serif;
+    letter-spacing: 1px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 50px;
+    color: #4c4637;
+}
+
+p {
+    font: 1.3em sans-serif;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    color: #83969a;
+}
+
+input {
+    font: 1.1em sans-serif;
+    letter-spacing: 1px;
+    width: 15%;
+    background-color: #c1d6b6;
+    color: #000000;
+    box-sizing: border-box;
+    border: 3px solid #ccc;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    outline: none;
+}
+
+input[type=text] {
+    padding: 8px 10px;
+    margin: 25px 15px;
+}
+
+input[type=password] {
+    padding: 8px 10px;
+    margin: 25px 15px;
+}
+
+input[type=text]:focus {
+    border: 1px solid #555;
+}
+
+input[type=password]:focus {
+    border: 1px solid #555;
+}
+
+.button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 12px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+
+}
+
+.buttonRed {
+    background-color: #af5845; /* Green */
+    border: none;
+    color: white;
+    padding: 12px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+
+}
+
+.buttonBlue {
+    background-color: #3d51af; /* Green */
+    border: none;
+    color: white;
+    padding: 12px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+
+}
+
+.button:hover {
+    background-color: #008CBA;
+    color: white;
+}
+
+label {
+    font: 1.3em sans-serif;
+    padding: 8px 10px;
+}
+
+/* Style the header */
+.header {
+    background-color: #cccccc;
+    padding: 20px;
+    text-align: center;
+}
+
+h1.error {
+    color: red;
+}
+
+.hero {
+    background-color: #6dba6d;
+    color: white;
+}
+
+.enemy {
+    background-color: #bab15c;
+    color: white;
+}
+
+.flex-container {
+    display: flex;
+    flex-wrap: nowrap;
+    background-color: #dedede;
+}
+
+.flex-container .box {
+    background-color: #dedede;
+    width: 50%;
+    margin: 15px;
+    text-align: center;
+    font-size: 15px;
+}
+
+p.enemy {
+    width: auto;
+    background-color: #f1ba91;
+}
+
+p.hero {
+    width: auto;
+    background-color: #b4a7f1;
 }

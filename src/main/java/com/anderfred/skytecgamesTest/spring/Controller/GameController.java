@@ -27,54 +27,46 @@ public class GameController {
 
     @GetMapping("/")
     public String index(Model model) {
-        gameService.setDate(model);
         model.addAttribute("player", new Player());
-              return "login";
+        return "login";
     }
 
     @PostMapping("/")
     public String indexPost(Model model) {
-        gameService.setDate(model);
         model.addAttribute("player", new Player());
         return "login";
     }
 
     @PostMapping("/verify")
     public String verify(@ModelAttribute("player") Player player1, Model model) {
-        gameService.setDate(model);
         return gameService.verify(player1, model);
     }
 
     @PostMapping("/exit")
     public String exit(Model model) {
-        gameService.setDate(model);
         model.addAttribute("error", "Successful Exit");
         model.addAttribute("player", new Player());
         return "login";
     }
 
     @PostMapping("/duel")
-    public String duel(Model model) {
-        gameService.setDate(model);
+    public String duel() {
         return "duel";
     }
 
     @PostMapping("/duelWait")
-    public String waitIt(Model model) {
-        gameService.setDate(model);
+    public String waitIt() {
         return "duelWait";
     }
 
     @GetMapping("/duelWait")
     public String waitTi(@ModelAttribute("player") Player player, Model model, HttpSession session) {
-        gameService.setDate(model);
         return gameService.waitForOpponent(player, model, session);
     }
 
     @GetMapping("/fight")
-    public String fight(@ModelAttribute("player") Player player , Model model) {
+    public String fight(@ModelAttribute("player") Player player, Model model) {
         gameService.setDate(model);
-
         return "fight";
     }
 

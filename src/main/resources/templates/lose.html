@@ -2,14 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/style.css">
     <title>Lose</title>
 </head>
 <body>
-<h1>LOSER</h1>
-<form th:action="@{/}" method="POST">
-    <label><b>Exit</b></label>
-    <button type="submit">Exit</button>
-</form>
-<h2><span th:text="${#dates.createNow().getTime()} - ${time}"></span></h2>
+<div class="page-wrapper">
+    <div class="header">
+        <h1>Duel Test</h1>
+        <br><br>
+    </div>
+
+    <h1>Вы проиграли!</h1>
+    <form th:action="@{/}" method="POST">
+        <button class="buttonRed" type="submit">Выйти</button>
+    </form>
+</div>
 </body>
 </html>
