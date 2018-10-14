@@ -33,7 +33,7 @@
             <td th:text="${hit}"></td>
         </tr>
     </table>
-    <h2>Время загрузки страницы:<span th:text="${#dates.createNow().getTime()} - ${time}"></span>ms</h2>
+    <h2 class="stat">Page <span th:text="${#dates.createNow().getTime()} - ${time}"></span>ms,<span th:text="${reqCount}"></span>req(<span th:text="${reqTime}"></span>ms)</h2>
 </div>
 
 </body>

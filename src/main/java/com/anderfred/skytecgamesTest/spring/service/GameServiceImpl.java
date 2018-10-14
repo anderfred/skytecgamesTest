@@ -2,12 +2,14 @@ package com.anderfred.skytecgamesTest.spring.service;
 
 import com.anderfred.skytecgamesTest.spring.Controller.GameController;
 import com.anderfred.skytecgamesTest.spring.entity.Player;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.support.SessionStatus;
 
+import javax.persistence.EntityManager;
 import javax.servlet.http.HttpSession;
 import java.util.*;
 
@@ -15,6 +17,9 @@ import java.util.*;
 public class GameServiceImpl implements GameService {
     @Autowired
     PlayerService playerService;
+
+    @Autowired
+    EntityManager entityManager;
 
     @Override
     public String verify(Player player1, Model model) {
@@ -97,11 +102,6 @@ public class GameServiceImpl implements GameService {
         }
     }
 
-    @Override
-    public void setDate(Model model) {
-        Date date = new Date();
-        model.addAttribute("time", date.getTime());
-    }
 
     @Override
     public void logHits(Player hero, Player enemy) {
@@ -114,8 +114,12 @@ public class GameServiceImpl implements GameService {
             listHero.addFirst("Вас убил " + enemy.getName());
             listEnemy.addFirst("Вы убили " + hero.getName());
         }
-        if(listHero.size()>3){listHero.removeLast();}
-        if(listEnemy.size()>3){listEnemy.removeLast();}
+        if (listHero.size() > 3) {
+            listHero.removeLast();
+        }
+        if (listEnemy.size() > 3) {
+            listEnemy.removeLast();
+        }
         GameController.hitLog.replace(hero.getId(), listHero);
         GameController.hitLog.replace(enemy.getId(), listEnemy);
 
@@ -157,5 +161,22 @@ public class GameServiceImpl implements GameService {
     public void ready(Player player) {
         player.setReady(true);
         playerService.save(player);
+    }
+
+    @Override
+    public Session clear() {
+        Session sessionStat = (Session) this.entityManager.getDelegate();
+        sessionStat.getSessionFactory().getStatistics().clear();
+        return sessionStat;
+    }
+
+    @Override
+    public void modelSetMetrics(Model model, Session sessionStat) {
+        Date req = new Date(sessionStat.getSessionFactory().getStatistics().getStartTime());
+        Date nowDate = new Date();
+        model.addAttribute("time", nowDate.getTime());
+        model.addAttribute("reqTime", (nowDate.getTime() - req.getTime()));
+        model.addAttribute("reqCount", sessionStat.getSessionFactory().getStatistics().getQueryExecutionCount());
+        sessionStat.getSessionFactory().getStatistics().clear();
     }
 }

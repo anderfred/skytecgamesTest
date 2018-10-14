@@ -1,6 +1,6 @@
-DROP DATABASE IF EXISTS no7z4etqsrwq2n49;
-CREATE DATABASE no7z4etqsrwq2n49;
-USE no7z4etqsrwq2n49;
+DROP DATABASE IF EXISTS skytecgames;
+CREATE DATABASE skytecgames;
+USE skytecgames;
 CREATE TABLE player(
   id INT AUTO_INCREMENT NOT NULL,
   name VARCHAR(255) NOT NULL,

@@ -236,3 +236,6 @@ p.hero {
     width: auto;
     background-color: #b4a7f1;
 }
+h2.stat {
+    text-align: center;
+}

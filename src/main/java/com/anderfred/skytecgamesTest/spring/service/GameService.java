@@ -1,6 +1,7 @@
 package com.anderfred.skytecgamesTest.spring.service;
 
 import com.anderfred.skytecgamesTest.spring.entity.Player;
+import org.hibernate.Session;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.support.SessionStatus;
 
@@ -15,8 +16,6 @@ public interface GameService {
 
     void makeMatch();
 
-    void setDate(Model model);
-
     void logHits(Player hero, Player enemy);
 
     String win(Player hero, HttpSession session, SessionStatus status, Model model);
@@ -26,4 +25,8 @@ public interface GameService {
     void addEnemyAttribute(Player player, Model model);
 
     void ready(Player player);
+
+    Session clear();
+
+    void modelSetMetrics(Model model, Session sessionStat);
 }
