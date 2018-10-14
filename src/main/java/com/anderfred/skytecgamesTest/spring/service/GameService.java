@@ -11,7 +11,7 @@ public interface GameService {
 
     String waitForOpponent(Player player, Model model, HttpSession session);
 
-    String hit(Player hero, Player enemy, Model model, HttpSession session, SessionStatus status);
+    String hit(Player player, Model model, HttpSession session, SessionStatus status);
 
     void makeMatch();
 
@@ -19,7 +19,11 @@ public interface GameService {
 
     void logHits(Player hero, Player enemy);
 
-    void win(Player hero, HttpSession session, SessionStatus status);
+    String win(Player hero, HttpSession session, SessionStatus status, Model model);
 
-    void lose(Player hero, HttpSession session, SessionStatus status);
+    String lose(Player hero, HttpSession session, SessionStatus status, Model model);
+
+    void addEnemyAttribute(Player player, Model model);
+
+    void ready(Player player);
 }

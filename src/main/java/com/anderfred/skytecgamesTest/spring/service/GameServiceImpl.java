@@ -5,6 +5,7 @@ import com.anderfred.skytecgamesTest.spring.entity.Player;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.support.SessionStatus;
 
 import javax.servlet.http.HttpSession;
@@ -21,10 +22,15 @@ public class GameServiceImpl implements GameService {
             Player player = new Player(player1.getName(), player1.getPassword(), 100, 0, 10, false);
             playerService.save(player);
             model.addAttribute("player", player);
+            GameController.playersOnline.put(player.getId(), player);
             return "welcome";
         } else {
             if (playerService.getPlayerByName(player1.getName()).getPassword().equals(player1.getPassword())) {
-                model.addAttribute("player", playerService.getPlayerByName(player1.getName()));
+                Player player = playerService.getPlayerByName(player1.getName());
+                player.setReady(false);
+                playerService.save(player);
+                model.addAttribute("player", playerService.getPlayerByName(player.getName()));
+                GameController.playersOnline.put(player.getId(), player);
                 return "welcome";
             } else {
                 model.addAttribute("error", "wrong password");
@@ -36,55 +42,53 @@ public class GameServiceImpl implements GameService {
 
     @Override
     public String waitForOpponent(Player player, Model model, HttpSession session) {
+        makeMatch();
+
         if (GameController.match.size() >= 2 && GameController.match.containsKey(player.getId())) {
-            model.addAttribute("hero", playerService.getPlayerByName(player.getName()));
+            addEnemyAttribute(player, model);
             model.addAttribute("heroHp", playerService.getPlayerByName(player.getName()).getHealth());
-            model.addAttribute("enemy", playerService.findById(GameController.match.get(player.getId())).get());
             return "prepareFight";
-        }
-        if (!GameController.game.containsKey(player.getId())) {
-            GameController.game.put(player.getId(), playerService.getPlayerByName(player.getName()));
-            makeMatch();
         }
         return "duelWait";
     }
 
     @Override
-    public String hit(Player hero, Player enemy, Model model, HttpSession session, SessionStatus status) {
-        if (playerService.getPlayerByName(hero.getName()).getHealth() > 0) {
-            playerService.hit(hero, enemy);
-            logHits(playerService.getPlayerByName(hero.getName()), playerService.getPlayerByName(enemy.getName()));
-            model.addAttribute("hits", GameController.hitLog.get(hero.getId()));
-            model.addAttribute("enemy", playerService.getPlayerByName(enemy.getName()));
-            model.addAttribute("hero", playerService.getPlayerByName(hero.getName()));
+    public String hit(Player player, Model model, HttpSession session, SessionStatus status) {
+        if (playerService.getPlayerByName(player.getName()).getHealth() > 0) {
+            playerService.hit(player, playerService.findById(GameController.match.get(player.getId())).get());
+            logHits(playerService.getPlayerByName(player.getName()), playerService.findById(GameController.match.get(player.getId())).get());
+            model.addAttribute("hits", GameController.hitLog.get(player.getId()));
+            addEnemyAttribute(player, model);
         }
-        if (playerService.getPlayerByName(hero.getName()).getHealth() <= 0) {
-            lose(hero, session, status);
-            return "lose";
-        } else if (playerService.getPlayerByName(enemy.getName()).getHealth() <= 0) {
-            win(hero, session, status);
-            return "win";
+        if (playerService.getPlayerByName(player.getName()).getHealth() <= 0) {
+            return lose(player, session, status, model);
+        } else if (playerService.getPlayerByName(playerService.findById(GameController.match.get(player.getId())).get().getName()).getHealth() <= 0) {
+            return win(player, session, status, model);
         }
         return "fight";
     }
 
     @Override
     public void makeMatch() {
-        if (GameController.game.size() >= 2) {
-            Player first = new Player(), second = new Player();
-            int i = 0;
-            for (Map.Entry<Integer, Player> m : GameController.game.entrySet()) {
-                if (i == 0) {
-                    first = m.getValue();
+        Player first = null, second = null;
+        if (GameController.playersOnline.size() >= 2) {
+            for (Map.Entry<Integer, Player> m : GameController.playersOnline.entrySet()) {
+                if (m.getValue().isReady()) {
+                    if (first == null) {
+                        first = m.getValue();
+                    } else if (second == null) {
+                        second = m.getValue();
+                    }
                 }
-                if (i == 1) {
-                    second = m.getValue();
-                    break;
-                }
-                i++;
             }
-            GameController.game.remove(first.getId());
-            GameController.game.remove(second.getId());
+        }
+        if (first != null && second != null) {
+            first.setReady(false);
+            playerService.save(first);
+            second.setReady(false);
+            playerService.save(second);
+            GameController.playersOnline.replace(first.getId(), first);
+            GameController.playersOnline.replace(second.getId(), second);
             GameController.match.put(first.getId(), second.getId());
             GameController.match.put(second.getId(), first.getId());
             GameController.hitLog.put(second.getId(), new LinkedList<>());
@@ -116,18 +120,40 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public void win(Player hero, HttpSession session, SessionStatus status) {
+    public String win(Player hero, HttpSession session, SessionStatus status, Model model) {
+        hero.setReady(false);
         playerService.afterFight(hero, Integer.parseInt(session.getAttribute("heroHp").toString()), +1);
         GameController.match.remove(hero.getId());
+        GameController.playersOnline.remove(hero.getId());
         GameController.hitLog.remove(hero.getId());
         status.setComplete();
+        model.addAttribute("message", "Вы победили!");
+        model.addAttribute("hero", playerService.getPlayerByName(hero.getName()));
+        return "summary";
     }
 
     @Override
-    public void lose(Player hero, HttpSession session, SessionStatus status) {
+    public String lose(Player hero, HttpSession session, SessionStatus status, Model model) {
+        hero.setReady(false);
         playerService.afterFight(hero, Integer.parseInt(session.getAttribute("heroHp").toString()), -1);
         GameController.match.remove(hero.getId());
+        GameController.playersOnline.remove(hero.getId());
         GameController.hitLog.remove(hero.getId());
         status.setComplete();
+        model.addAttribute("message", "Вы проиграли!");
+        model.addAttribute("hero", playerService.getPlayerByName(hero.getName()));
+        return "summary";
+    }
+
+    @Override
+    public void addEnemyAttribute(Player player, Model model) {
+        model.addAttribute("hero", playerService.getPlayerByName(player.getName()));
+        model.addAttribute("enemy", playerService.findById(GameController.match.get(player.getId())).get());
+    }
+
+    @Override
+    public void ready(Player player) {
+        player.setReady(true);
+        playerService.save(player);
     }
 }

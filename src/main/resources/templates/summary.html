@@ -12,7 +12,12 @@
         <br><br>
     </div>
 
-    <h1>Вы победили!</h1>
+    <h1><span th:text="${message}"></span></h1>
+    <p>Характеристики после дуэли:</p>
+    <p><span th:text="${hero.name}"></span></p>
+    <p><span th:text="'Урон: '+${hero.damage}"></span></p>
+    <p><span th:text="'Здоровье: '+${hero.health}"></span></p>
+    <p><span th:text="'Рейтинг: '+${hero.rating}"></span></p>
     <form th:action="@{/}" method="POST">
         <button class="buttonRed" type="submit">Выйти</button>
     </form>

@@ -15,15 +15,16 @@ import java.util.Map;
 
 
 @Controller
-@SessionAttributes({"player", "hero", "enemy", "heroHp"})
+@SessionAttributes({"player", "heroHp"})
 @RequestMapping("/")
 public class GameController {
 
     @Autowired
     GameService gameService;
-    public static Map<Integer, Player> game = new HashMap<>();
+    public static Map<Integer, Player> playersOnline = new HashMap<>();
     public static Map<Integer, Integer> match = new HashMap<>();
     public static Map<Integer, Deque<String>> hitLog = new HashMap<>();
+
 
     @GetMapping("/")
     public String index(Model model) {
@@ -55,7 +56,8 @@ public class GameController {
     }
 
     @PostMapping("/duelWait")
-    public String waitIt() {
+    public String waitIt(@ModelAttribute("player") Player player) {
+        gameService.ready(player);
         return "duelWait";
     }
 
@@ -66,15 +68,14 @@ public class GameController {
 
     @GetMapping("/fight")
     public String fight(@ModelAttribute("player") Player player, Model model) {
+        gameService.addEnemyAttribute(player, model);
         gameService.setDate(model);
         return "fight";
     }
 
     @PostMapping("/hit")
-    public String hit(@ModelAttribute("hero") Player hero, @ModelAttribute("enemy") Player enemy, Model model, HttpSession session, SessionStatus status) {
+    public String hit(@ModelAttribute("player") Player player, Model model, HttpSession session, SessionStatus status) {
         gameService.setDate(model);
-        return gameService.hit(hero, enemy, model, session, status);
+        return gameService.hit(player, model, session, status);
     }
-
-
 }

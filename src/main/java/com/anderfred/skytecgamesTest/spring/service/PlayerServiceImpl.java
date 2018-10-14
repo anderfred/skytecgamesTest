@@ -33,11 +33,11 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
-    public void afterFight(Player player, Integer hp, Integer rating) {
-        player = getPlayerByName(player.getName());
-        player.setDamage(player.getDamage() + 1);
+    public void afterFight(Player playerAfter, Integer hp, Integer rating) {
+        Player player = getPlayerByName(playerAfter.getName());
+        player.setDamage(playerAfter.getDamage() + 1);
         player.setHealth(hp + 1);
-        player.setRating(player.getRating() + rating);
+        player.setRating(playerAfter.getRating() + rating);
         save(player);
     }
 

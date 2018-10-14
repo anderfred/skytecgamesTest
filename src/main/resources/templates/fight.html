@@ -17,7 +17,7 @@
     <p><span th:text="'Hp: '+${hero.health}"></span></p>
     <p><span th:text="'Rating: '+${hero.rating}"></span></p>
     <br><br>
-    <form th:action="@{/hit}" method="POST">
+    <form th:action="@{/hit}" method="POST" th:object="${player}" th:value="${hero}">
         <button class="buttonRed" type="submit">Ударить!</button>
     </form>
     <br><br>
