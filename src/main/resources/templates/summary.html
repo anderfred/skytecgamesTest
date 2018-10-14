@@ -21,7 +21,10 @@
     <form th:action="@{/}" method="POST">
         <button class="buttonRed" type="submit">Выйти</button>
     </form>
-    <h2 class="stat">Page <span th:text="${#dates.createNow().getTime()} - ${time}"></span>ms,<span th:text="${reqCount}"></span>req(<span th:text="${reqTime}"></span>ms)</h2>
+</div>
+<div>
+    <h2 class="stat">Page <span th:text="${#dates.createNow().getTime()} - ${time}"></span>ms,<span
+            th:text="${reqCount}"></span>req(<span th:text="${reqTime}"></span>ms)</h2>
 </div>
 </body>
 </html>

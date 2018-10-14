@@ -3,12 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="css/style.css">
-    <title>Вход</title>
+    <title>Duel</title>
 </head>
 <body>
 <div class="page-wrapper">
     <div class="header">
         <h1>Duel Test</h1>
+        <p>Тестовые данные:</p>
+        <p>Username:test</p>
+        <p>Password:test</p>
+        <p>Здоровье:100, Рейтинг:50, Урон:10</p>
         <br><br>
         <h1 class="error"><span th:text="${error}"></span></h1>
     </div>
@@ -25,7 +29,11 @@
             <button class="button" type="submit">Войти</button>
         </form>
     </div>
-    <h2 class="stat">Page <span th:text="${#dates.createNow().getTime()} - ${time}"></span>ms,<span th:text="${reqCount}"></span>req(<span th:text="${reqTime}"></span>ms)</h2>
+
+</div>
+<div>
+    <h2 class="stat">Page <span th:text="${#dates.createNow().getTime()} - ${time}"></span>ms,<span
+            th:text="${reqCount}"></span>req(<span th:text="${reqTime}"></span>ms)</h2>
 </div>
 </body>
 </html>
