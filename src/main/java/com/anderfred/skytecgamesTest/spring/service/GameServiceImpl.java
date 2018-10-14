@@ -57,6 +57,7 @@ public class GameServiceImpl implements GameService {
         if (playerService.getPlayerByName(player.getName()).getHealth() > 0) {
             playerService.hit(player, playerService.findById(GameController.match.get(player.getId())).get());
             logHits(playerService.getPlayerByName(player.getName()), playerService.findById(GameController.match.get(player.getId())).get());
+
             model.addAttribute("hits", GameController.hitLog.get(player.getId()));
             addEnemyAttribute(player, model);
         }
@@ -113,7 +114,8 @@ public class GameServiceImpl implements GameService {
             listHero.addFirst("Вас убил " + enemy.getName());
             listEnemy.addFirst("Вы убили " + hero.getName());
         }
-
+        if(listHero.size()>3){listHero.removeLast();}
+        if(listEnemy.size()>3){listEnemy.removeLast();}
         GameController.hitLog.replace(hero.getId(), listHero);
         GameController.hitLog.replace(enemy.getId(), listEnemy);
 
